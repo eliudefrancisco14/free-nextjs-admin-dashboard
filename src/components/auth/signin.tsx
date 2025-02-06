@@ -1,19 +1,39 @@
 'use client';
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import Cookie from "js-cookie";
 import { AuthLayout } from "@/components/Layouts/AuthLayout";
+import { useRouter } from "next/navigation";
+import { useLogin } from "@/hooks/useLogin";
+import { Toast } from "@radix-ui/react-toast";
+
 
 const SignIn: React.FC = () => {
     const [nomeUtilizador, setNomeUtilizador] = useState('');
-    const [password, setPassword] = useState('');
+    const [senha, setSenha] = useState('');
+    const router = useRouter();
+    const mutation = useLogin();
 
-    const handleSubmit = (event: React.FormEvent) => {
+
+    const handleSubmit = async (event: React.FormEvent) => {
         event.preventDefault();
-        // Handle sign in logic here
-        console.log('nomeUtilizador:', nomeUtilizador);
-        console.log('Password:', password);
+        mutation.mutate(
+            { nomeUtilizador, senha },
+            {
+                onSuccess: (data) => {
+                    Cookie.set("token", data.resposta.token);
+                    router.push("/dashboard/home");
+                },
+                onError: () => {
+                    Toast({
+                        title: "Erro ao efetuar login",
+                        // Description: "Verifique suas credenciais e tente novamente",
+                    });
+                },
+            },
+        );
     };
 
     return (
@@ -213,15 +233,15 @@ const SignIn: React.FC = () => {
 
                                 <div className="mb-6">
                                     <label className="mb-2.5 block font-medium text-black dark:text-white">
-                                        Password
+                                        Palavra-Passe
                                     </label>
                                     <div className="relative">
                                         <input
                                             type="password"
                                             placeholder="6+ Characters, 1 Capital letter"
                                             className="w-full rounded-lg border border-stroke bg-transparent py-4 pl-6 pr-10 text-black outline-none focus:border-primary focus-visible:shadow-none dark:border-form-strokedark dark:bg-form-input dark:text-white dark:focus:border-primary"
-                                            value={password}
-                                            onChange={(e) => setPassword(e.target.value)}
+                                            value={senha}
+                                            onChange={(e) => setSenha(e.target.value)}
                                         />
 
                                         <span className="absolute right-4 top-4">
@@ -251,11 +271,11 @@ const SignIn: React.FC = () => {
                                 <div className="mb-5">
                                     <input
                                         type="submit"
-                                        value="Sign In"
+                                        value={mutation.isPending ? "A carregar..." : "Entrar"}
                                         className="w-full cursor-pointer rounded-lg border border-primary bg-primary p-4 text-white transition hover:bg-opacity-90"
+                                        disabled={mutation.isPending}
                                     />
                                 </div>
-
 
                                 <div className="mt-6 text-center">
                                     <p>
