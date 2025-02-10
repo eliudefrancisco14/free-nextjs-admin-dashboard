@@ -6,6 +6,7 @@ import "@/css/style.css";
 import React, { useEffect, useState } from "react";
 import Loader from "@/components/common/Loader";
 import QueryProvider from "@/providers/QueryProvider";
+import { Toaster } from "sonner";
 
 export default function RootLayout({
   children,
@@ -26,8 +27,9 @@ export default function RootLayout({
       <body suppressHydrationWarning={true}>
         <QueryProvider>
           <div className="dark:bg-boxdark-2 dark:text-bodydark">
-            {loading ? <Loader /> : children } 
-        </div>
+            <Toaster richColors expand={true} />
+            {loading ? <Loader /> : children}
+          </div>
         </QueryProvider>
       </body>
     </html>

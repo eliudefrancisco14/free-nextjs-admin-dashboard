@@ -8,6 +8,7 @@ import { AuthLayout } from "@/components/Layouts/AuthLayout";
 import { useRouter } from "next/navigation";
 import { useLogin } from "@/hooks/useLogin";
 import { Toast } from "@radix-ui/react-toast";
+import { toast } from "sonner";
 
 
 const SignIn: React.FC = () => {
@@ -24,13 +25,16 @@ const SignIn: React.FC = () => {
             {
                 onSuccess: (data) => {
                     Cookie.set("token", data.resposta.token);
+                    toast.success("Logado com Sucesso", {
+                        description: "Login Efectuado com Sucesso",
+                    });
                     router.push("/dashboard/home");
                 },
                 onError: () => {
-                    Toast({
-                        title: "Erro ao efetuar login",
-                        // Description: "Verifique suas credenciais e tente novamente",
+                    toast.error("Erro ao efetuar login", {
+                        description: "Verifique suas credenciais e tente novamente",
                     });
+
                 },
             },
         );

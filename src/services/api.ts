@@ -62,7 +62,6 @@ export const getUsers = async (): Promise<getUsersResponse> => {
         const response = await api.get<{ resposta: getUsersResponse }>("/VerUser", {
             headers: customHeaderParams,
         });
-        console.log(response.data.resposta);
         return response.data.resposta;
     } catch (error) {
         console.error("Error during get users:", error);

@@ -3,6 +3,7 @@
 import React, { use, useEffect, useState } from "react";
 import { userTypes } from "@/types";
 import { getUsers } from "@/services/api";
+import { toast } from "sonner";
 
 
 
@@ -14,6 +15,7 @@ const TableComponent: React.FC = () => {
   }
   useEffect(() => {
     getUsersData();
+
   }, []);
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pb-2.5 pt-6 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
@@ -63,7 +65,7 @@ const TableComponent: React.FC = () => {
                 </td>
                 <td className="border-b border-[#eee] px-4 py-5 dark:border-strokedark">
                   <p
-                    className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${userItem.ativa === true ? "bg-success text-success" : "bg-danger text-danger" }`}
+                    className={`inline-flex rounded-full bg-opacity-10 px-3 py-1 text-sm font-medium ${userItem.ativa === true ? "bg-success text-success" : "bg-danger text-danger"}`}
                   >
                     {userItem.ativa === true ? "Online" : "Offline"}
                   </p>
