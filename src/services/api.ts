@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
-import { dtoResponse, LoginRequest, LoginResponse, mainResponse, userTypes } from "@/types";
+import { dtoResponse, LoginRequest, LoginResponse, mainResponse, userEditRequest, userRequest, userTypes } from "@/types";
 
 const api = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -70,15 +70,15 @@ export const getUsers = async (): Promise<getUsersResponse> => {
 };
 
 // ----- GET USER -----
-export const getUser = async (userId: string): Promise<mainResponse> => {
+export const getUser = async (userId: number): Promise<userTypes> => {
     const customHeaderParams = {
         Authorization: `Bearer ${token}`,
     };
     try {
-        const response = await api.get<mainResponse>(`/VerUser/${userId}`, {
+        const response = await api.get<{ resposta: userTypes }>(`/VerUser/${userId}`, {
             headers: customHeaderParams,
         });
-        return response.data;
+        return response.data.resposta;
     } catch (error) {
         console.error("Error during get user:", error);
         throw error;
@@ -87,14 +87,14 @@ export const getUser = async (userId: string): Promise<mainResponse> => {
 
 // ----- EDIT USER -----
 export const editUser = async (
-    userId: string,
-    userData: any
+    userId: number,
+    userData: userEditRequest
 ): Promise<mainResponse> => {
     const customHeaderParams = {
         Authorization: `Bearer ${token}`,
     };
     try {
-        const response = await api.put<mainResponse>(`/Users/${userId}`, userData, {
+        const response = await api.put<mainResponse>(`/editarUser/${userId}`, userData, {
             headers: customHeaderParams,
         });
         return response.data;
@@ -103,3 +103,37 @@ export const editUser = async (
         throw error;
     }
 };
+
+// ----- DELETE USER -----
+export const deleteUser = async (userId: number): Promise<mainResponse> => {
+    const customHeaderParams = {
+        Authorization: `Bearer ${token}`,
+    };
+    try {
+        const response = await api.delete<mainResponse>(`/RemoverUser/${userId}`, {
+            headers: customHeaderParams,
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error during delete user:", error);
+        throw error;
+    }
+};
+
+// ----- CREATE USER -----
+export const createUser = async (userData: userRequest): Promise<mainResponse> => {
+    const customHeaderParams = {
+        Authorization: `Bearer ${token}`,
+    };
+    try {
+        const response = await api.post<mainResponse>("/novoUser", userData, {
+            headers: customHeaderParams,
+        });
+        return response.data;
+    } catch (error) {
+        console.error("Error during create user:", error);
+        throw error;
+    }
+};
+
+// ----- CHANGE PASSWORD -----

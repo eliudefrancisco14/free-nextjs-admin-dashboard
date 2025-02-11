@@ -1,7 +1,5 @@
 import { Metadata } from "next";
-import DefaultLayout from "@/components/Layouts/DefaultLayout";
-import Table from "@/components/users/table";
-import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
+import UserPage from "@/components/users/UserPage";
 
 export const metadata: Metadata = {
   title:
@@ -10,19 +8,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return (
-    <>
-      <DefaultLayout>
-      <Breadcrumb pageName="Tables" />
-
-      <div className="flex flex-col gap-10">
-        
-        <Table />
-      </div>
-    </DefaultLayout>
-    </>
-  );
+  return <UserPage />;
 }
-
-
-
