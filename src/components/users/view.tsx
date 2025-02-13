@@ -7,7 +7,7 @@ interface UserViewProps {
 const UserView: React.FC<UserViewProps> = ({ user }) => {
     return (
         <div className="p-4 bg-white dark:bg-boxdark rounded-sm border border-stroke dark:border-strokedark">
-            <h2 className="text-xl font-bold mb-4">User Details</h2>
+            <h2 className="text-xl font-bold mb-4">Detalhes de Usuário</h2>
             <p className="mb-2"><strong>Nome:</strong> {user?.pessoa.primeiroNome} {user?.pessoa.ultimoNome}</p>
             <p className="mb-2"><strong>Email:</strong> {user?.pessoa.email}</p>
             <p className="mb-2"><strong>Telefone:</strong> {user?.pessoa.telefone}</p>

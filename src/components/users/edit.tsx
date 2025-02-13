@@ -3,10 +3,6 @@ import { userTypes } from '@/types';
 import React, { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 
-interface UserEditProps {
-    user: userTypes; // O usuário a ser editado
-}
-
 const UserEdit: React.FC<{ user: userTypes, onClose: () => void }> = ({ user, onClose }) => {
     const [form, setForm] = useState<userTypes>(user);
 

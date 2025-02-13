@@ -47,7 +47,7 @@ const TableComponent: React.FC = () => {
       toast.success("Usuário eliminado com sucesso", {
         description: `Usuário com id: ${id} foi eliminado com sucesso`,
       });
-      window.location.reload();
+      setIsModalDeleteOpen(false);
     } catch (error) {
       toast.error("Erro ao eliminar usuário", {
         description: `Error: ${error}`,

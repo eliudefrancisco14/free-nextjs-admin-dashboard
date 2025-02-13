@@ -40,7 +40,6 @@ const UserForm: React.FC = () => {
             toast.success("Sucesso", {
                 description: `${message.mensagem}`,
             });
-            window.location.reload();
         } catch (error) {
             toast.error("Erro ao salvar usuário", {
                 description: 'Verifique os campos e tente novamente',

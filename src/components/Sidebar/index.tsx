@@ -7,7 +7,7 @@ import Image from "next/image";
 import SidebarItem from "@/components/Sidebar/SidebarItem";
 import ClickOutside from "@/components/ClickOutside";
 import useLocalStorage from "@/hooks/useLocalStorage";
-import { Users } from "lucide-react";
+import { Kanban, Users } from "lucide-react";
 
 interface SidebarProps {
   sidebarOpen: boolean;
@@ -78,7 +78,14 @@ const menuGroups = [
           </svg>
         ),
         label: "Leads",
-        route: "/tables",
+        route: "/dashboard/lead",
+      },
+      {
+        icon: (
+          <Kanban />
+        ),
+        label: "Estágios",
+        route: "/dashboard/estagio",
       },
      
     ],
